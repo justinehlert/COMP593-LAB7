@@ -23,7 +23,7 @@ def main():
 
 def create_people_table():
     """Creates the people table in the database"""
-    # TODO: Create function body
+    # Create function body
     # Hint: See example code in lab instructions entitled "Creating a Table"
     con = sqlite3.connect(db_path)
     cur = con.cursor()
@@ -51,7 +51,7 @@ def create_people_table():
 
 def populate_people_table():
     """Populates the people table with 200 fake people"""
-    # TODO: Create function body
+    # Create function body
     # Hint: See example code in lab instructions entitled "Inserting Data into a Table"
     Faker.seed(0)
     con = sqlite3.connect(db_path)
