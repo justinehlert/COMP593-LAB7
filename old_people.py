@@ -8,6 +8,8 @@ Usage:
 """
 import os
 from create_db import db_path, script_dir
+import sqlite3
+import pandas as pd
 
 def main():
     old_people_list = get_old_people()
@@ -22,9 +24,15 @@ def get_old_people():
     Returns:
         list: (name, age) of old people 
     """
-    # TODO: Create function body
+    # Create function body
     # Hint: See example code in lab instructions entitled "Getting People Data from the Database"
-    return
+    con = sqlite3.connect(db_path)
+    cur = con.cursor()
+
+    cur.execute('SELECT name, age FROM people WHERE age > 49')    
+    old_people = cur.fetchall()
+
+    return old_people
 
 def print_name_and_age(name_and_age_list):
     """Prints name and age of all people in provided list
@@ -32,8 +40,10 @@ def print_name_and_age(name_and_age_list):
     Args:
         name_and_age_list (list): (name, age) of people
     """
-    # TODO: Create function body
+    # Create function body
     # Hint: Use a for loop to iterate the list of tuples to print a sentence for each old person
+    for item in name_and_age_list:
+        print(f'{item[0]} is {item[1]} years old.')
     return
 
 def save_name_and_age_to_csv(name_and_age_list, csv_path):
@@ -43,8 +53,11 @@ def save_name_and_age_to_csv(name_and_age_list, csv_path):
         name_and_age_list (list): (name, age) of people
         csv_path (str): Path of CSV file
     """
-    # TODO: Create function body
+    # Create function body
     # Hint: In Lab 3, we converted a list of tuples into a pandas DataFrame and saved it to a CSV file
+    df = pd.DataFrame(name_and_age_list, columns=('Name', 'Age'))
+    df.to_csv(csv_path, index=False)
+
     return
 
 if __name__ == '__main__':
